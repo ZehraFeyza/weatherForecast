@@ -25,7 +25,7 @@ setLoading(true);
 console.log(values);
 const email="zehra@gmail.com";
 const password="zehraf";
-if(email===values.email  && password==values.password){
+if(email===values.email  && password===values.password){
   localStorage.setItem("email",email);
   localStorage.setItem("password",password);
   navigate("/search")//tüm validasyonlar saglanırsa sayfalar arası geciş ok

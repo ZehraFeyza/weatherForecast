@@ -17,4 +17,4 @@ const DznRoute = () => {
   )
 }
 
-export default DznRoute
+export default DznRoute;
