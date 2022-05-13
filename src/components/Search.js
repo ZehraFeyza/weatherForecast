@@ -8,19 +8,19 @@ import img from "../data/img.json";
 
 const Search = () => {
   const [search, setSearch] = useState("");
-  const [data, setData] = useState({}); //data bir boş bir obje su an(apı)
+  const [data, setData] = useState();
+  console.log("​Search -> data", data);
   const [loading, setLoading] = useState(false);
   const date = moment().format("MMM DD ,YYYY");
   const navigate = useNavigate();
 
-  const handleonChange = (e) => {
+  const handleChange = (e) => {
     setSearch(e.target.value);
   };
-
-  const handleOnSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (search) {
-      getData(setSearch).then((resp) => {
+      getData(search).then((resp) => {
         setData(resp.data);
         setSearch("");
       });
@@ -38,89 +38,75 @@ const Search = () => {
   useEffect(() => {
     getData("London")
       .then((resp) => {
+        console.log("​Search -> resp", resp);
         setData(resp.data);
       })
       .catch((err) => {
         console.log("ERROR");
       });
   }, []);
+  console.log("​Search -> data", data);
+
   return (
     <Container>
-      <Row //!Arama alanı + Arama butonu
-      >
-        {" "}
+      <Row>
         <Col>
           <div className="text-center">
-            <form className="arama-formu" onSubmit={handleOnSubmit}>
-              <input //Html5 ile gelen autofocus özelliği
-                // ile imlec odağını input nesnesine kaydırabiliriz
+            <form className="arama-formu" onSubmit={handleSubmit}>
+              <input
                 className="arama-input w-50"
                 type="search"
                 placeholder="Lütfen bir sehir giriniz"
                 value={search}
-                onChange={handleonChange}
-              >
-                <button className="arama-btn" type="submit">
-                  {" "}
-                  <BsSearch
-                  //Search ikonumuz bootstrapden
-                  />
-                </button>
-              </input>
+                onChange={handleChange}
+              />
+              <button className="arama-btn" type="submit">
+                <BsSearch />
+              </button>
             </form>
           </div>
         </Col>
       </Row>
-
-      <Row //! Seçilen sehrin Bilgilerinin bulundugu Alan
-      >
+      <Row>
         <Col>
           <Card>
             <Card.Body>
-              {search && search !== data.name && (
+              {search && data && search !== data.name && (
                 <h1 className="text-center">Şehir bilgileri Bulunamadi...</h1>
               )}
 
               <table>
                 <thead>
                   <tr>
-                    <th>{data.name} </th>
+                    <th>{data && data.name} </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      {/* key map de ilk elemana verilir */}
-                      {/* weather[0].main:
-        bu satır weather api de dizi olarak tanımlanıp  1 tane objesinin 
-        içinde ki eleman main oldugundan dolayı bu sekılde yazdık
-        data.weather[0]main: havaolayı getiriıyor
-        data.main.temp: sıcaklık ı getiriyor
-        data.main.humidity: nemlilik getiriyor */}
-                      {img?.map((image, i) => {
-                        return (
-                          image?.name === data?.weather[0].main && (
-                            <div key={image.id}>
+                      {img.map(
+                        (item) =>
+                          data&&item.name === data.weather[0].main && (
+                            <div key={item.id}>
                               <img
-                                src={image.url}
+                                src={`/assets/${item.url}`}
                                 className="img-fluid w-50"
                                 alt="images"
                               />
                             </div>
                           )
-                        );
-                      })}{" "}
+                      )}
                     </td>
                     <td>{date}</td>
                   </tr>
                   <tr>
-                    <td>{data.weather[0].main} </td>
+                    <td>{data && data.weather[0].main} </td>
                   </tr>
                   <tr>
-                    <td>{data.main.temp} °C </td>
+                    <td>{data && data.main.temp} °C </td>
                   </tr>
                   <tr>
-                    <td> Humidity{data.main.humidity}%</td>
+                    <td> Humidity{data && data.main.humidity}%</td>
                   </tr>
                 </tbody>
               </table>
