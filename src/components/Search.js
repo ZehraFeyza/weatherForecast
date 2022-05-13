@@ -9,7 +9,7 @@ import img from "../data/img.json";
 const Search = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState();
-  console.log("​Search -> data", data);
+  console.log("Search -> data", data);
   const [loading, setLoading] = useState(false);
   const date = moment().format("MMM DD ,YYYY");
   const navigate = useNavigate();
@@ -38,14 +38,14 @@ const Search = () => {
   useEffect(() => {
     getData("London")
       .then((resp) => {
-        console.log("​Search -> resp", resp);
+        console.log("Search -> resp", resp);
         setData(resp.data);
       })
       .catch((err) => {
         console.log("ERROR");
       });
   }, []);
-  console.log("​Search -> data", data);
+  console.log("Search -> data", data);
 
   return (
     <Container>
@@ -116,7 +116,7 @@ const Search = () => {
       </Row>
       <Row>
         <Col>
-          <button type="submit" onClick={handleLogout} disabled={loading}>
+          <button type="submit" onClick={handleLogout} disabled={loading} >
             {<Spinner animation="border" size="sm" />} Logout
           </button>
         </Col>
