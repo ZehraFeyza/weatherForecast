@@ -5,6 +5,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../api/Api";
 import img from "../data/img.json";
+import background from "../assets/img/background.webp";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -48,32 +49,34 @@ const Search = () => {
   console.log("Search -> data", data);
 
   return (
-    <Container>
+    <Container className=" text-center mt-5"  >
       <Row>
         <Col>
-          <div className="text-center">
-            <form className="arama-formu" onSubmit={handleSubmit}>
+          <Card  className="text-center"  style={{ 
+      backgroundImage: `url(${background})` ,backgroundRepeat:"no-repeat",backgroundSize:"contain",
+      height:600,width:600 , backgroundSize:"cover" }}>
+          <div>
+            <br/>
+            <h1 style={{color:"white"}}> The Weather Forest </h1><br/>
+            <form className="" onSubmit={handleSubmit}>
               <input
-                className="arama-input w-50"
+                className=""
                 type="search"
                 placeholder="Lütfen bir sehir giriniz"
                 value={search}
                 onChange={handleChange}
               />
-              <button className="arama-btn" type="submit">
+              <button className="btn-out" type="submit">
                 <BsSearch />
               </button>
             </form>
           </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Card>
+          <br/>
             <Card.Body>
               {search && data && search !== data.name && (
                 <h1 className="text-center">Şehir bilgileri Bulunamadi...</h1>
               )}
+<br/>
 
               <table>
                 <thead>
@@ -81,6 +84,7 @@ const Search = () => {
                     <th>{data && data.name} </th>
                   </tr>
                 </thead>
+                <br/>
                 <tbody>
                   <tr>
                     <td>
@@ -102,14 +106,18 @@ const Search = () => {
                   <tr>
                     <td>{data && data.weather[0].main} </td>
                   </tr>
+                  <br/>
                   <tr>
                     <td>{data && data.main.temp} °C </td>
                   </tr>
+                  <br/>
                   <tr>
                     <td> Humidity{data && data.main.humidity}%</td>
                   </tr>
                 </tbody>
               </table>
+              <br/>
+    
             </Card.Body>
           </Card>
         </Col>
@@ -117,10 +125,11 @@ const Search = () => {
       <Row>
         <Col>
           <button type="submit" onClick={handleLogout} disabled={loading} >
-            {<Spinner animation="border" size="sm" />} Logout
+            {loading && <Spinner animation="border" size="sm" />}  Logout
           </button>
         </Col>
       </Row>
+     
     </Container>
   );
 };

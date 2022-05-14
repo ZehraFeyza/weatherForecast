@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ const Login = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={loading}>
+                <Button variant="primary" type="submit" style={{}} disabled={loading}>
                   {loading && <Spinner animation="border" size="sm" />}
                   Kaydol
                 </Button>
