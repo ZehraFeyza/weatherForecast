@@ -114,19 +114,25 @@ const Search = () => {
                   <tr>
                     <td> Humidity{data && data.main.humidity}%</td>
                   </tr>
+                  <br/>
+                  <tr>
+                    <td>
+                    <button type="submit" onClick={handleLogout} disabled={loading} >
+            {loading && <Spinner animation="border" size="sm" />}  Logout
+          </button>
+                    </td>
+                  </tr>
+               
                 </tbody>
               </table>
-              <br/>
-    
+           
             </Card.Body>
           </Card>
         </Col>
       </Row>
       <Row>
         <Col>
-          <button type="submit" onClick={handleLogout} disabled={loading} >
-            {loading && <Spinner animation="border" size="sm" />}  Logout
-          </button>
+          
         </Col>
       </Row>
      
